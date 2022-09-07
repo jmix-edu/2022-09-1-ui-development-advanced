@@ -38,6 +38,7 @@
                     <actions>
                         <action id="entityLookup" type="entity_lookup"/>
                         <action id="entityClear" type="entity_clear"/>
+                        <action id="entityOen" type="entity_open"/>
                     </actions>
                 </entityPicker>
             </column>

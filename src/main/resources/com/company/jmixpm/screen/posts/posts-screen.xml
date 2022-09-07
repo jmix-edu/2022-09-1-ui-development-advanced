@@ -8,6 +8,10 @@
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
+
+        <screen id="userInfoScreenFacet"
+                screenClass="com.company.jmixpm.screen.userinfo.UserInfoScreen"
+                onAction="postsTable.viewUserInfo"/>
     </facets>
     <layout>
         <table id="postsTable"

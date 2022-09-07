@@ -7,11 +7,13 @@ import io.jmix.core.LoadContext;
 import io.jmix.ui.ScreenBuilders;
 import io.jmix.ui.action.Action;
 import io.jmix.ui.component.Table;
+import io.jmix.ui.navigation.Route;
 import io.jmix.ui.screen.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+@Route("posts")
 @UiController("PostsScreen")
 @UiDescriptor("posts-screen.xml")
 public class PostsScreen extends Screen {
@@ -28,7 +30,17 @@ public class PostsScreen extends Screen {
         return postService.fetchPosts();
     }
 
-    @Subscribe("postsTable.viewUserInfo")
+    @Install(to = "userInfoScreenFacet", subject = "screenConfigurer")
+    private void userInfoScreenFacetScreenConfigurer(UserInfoScreen userInfoScreen) {
+        Post selected = postsTable.getSingleSelected();
+        if (selected == null || selected.getUserId() == null) {
+            throw new IllegalStateException("No Post selected");
+        }
+
+        userInfoScreen.setUserId(selected.getUserId());
+    }
+
+    /*@Subscribe("postsTable.viewUserInfo")
     public void onPostsTableViewUserInfo(Action.ActionPerformedEvent event) {
         Post selected = postsTable.getSingleSelected();
         if (selected == null || selected.getUserId() == null) {
@@ -42,5 +54,5 @@ public class PostsScreen extends Screen {
         userInfoScreen.setUserId(selected.getUserId());
 
         userInfoScreen.show();
-    }
+    }*/
 }
